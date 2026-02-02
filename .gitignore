@@ -48,3 +48,6 @@
 
 .DS_Store
 .vscode/
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
