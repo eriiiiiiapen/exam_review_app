@@ -10,4 +10,10 @@ class StudyLog < ApplicationRecord
   }, scopes: false
 
   validates :understanding_level, presence: true
+
+  # 要復習論点
+  scope :needs_review, -> {
+    where.not(understanding_level: :mastered)
+         .where('studied_on < ?', 5.days.ago)
+  }
 end

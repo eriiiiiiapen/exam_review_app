@@ -1,0 +1,20 @@
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <nav class="mb-4 text-gray-600 text-sm">
+    <%= link_to "試験一覧", exams_path, class: "hover:underline" %> &gt; <%= @exam.name %>
+  </nav>
+
+  <h1 class="text-3xl font-bold text-gray-900 mb-8"><%= @exam.name %></h1>
+
+  <h2 class="text-xl font-semibold mb-4 border-b pb-2">科目を選択してください</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <% @subjects.each do |subject| %>
+      <%= link_to exam_subject_path(@exam, subject), class: "block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 transition" do %>
+        <div class="flex justify-between items-center">
+          <span class="text-lg font-medium text-blue-600"><%= subject.name %></span>
+          <span class="text-gray-400">→</span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

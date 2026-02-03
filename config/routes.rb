@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "subjects/show"
+  get "exams/index"
+  get "exams/show"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,4 +15,18 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :exams, only: [:index, :show] do
+    resources :subjects, only: [:show]
+  end
+
+  resources :subjects, only: [] do
+    resources :topics, only: [:index, :show, :new, :create]
+  end
+  
+  resources :topics, only: [] do
+    resources :study_logs, only: [:create, :update]
+  end
+
+  root "exams#index"
 end
