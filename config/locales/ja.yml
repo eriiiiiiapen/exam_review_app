@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      study_log:
+        understanding_levels:
+          not_understood: "未着手"
+          vaguely_understood: "なんとなく"
+          understood: "まあ理解"
+          mastered: "完璧"

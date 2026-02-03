@@ -1,0 +1,20 @@
+<div class="max-w-2xl mx-auto py-8 px-4">
+  <h1 class="text-2xl font-bold mb-6"><%= @subject.name %> に論点を追加</h1>
+
+  <%= form_with(model: [@subject, @topic], local: true, class: "space-y-6") do |f| %>
+    <div>
+      <%= f.label :name, "論点名 (例: 労働条件の明示)", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
+    </div>
+
+    <div>
+      <%= f.label :description, "説明・メモ", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :description, rows: 4, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" %>
+    </div>
+
+    <div class="flex justify-end space-x-3">
+      <%= link_to "キャンセル", subject_path(@subject), class: "text-gray-600 py-2 px-4" %>
+      <%= f.submit "保存する", class: "bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
