@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "topic_#{@topic.id}_status" do %>
+  <%= render "subjects/status_button", topic: @topic %>
+<% end %>

@@ -14,6 +14,10 @@ class StudyLog < ApplicationRecord
   # 要復習論点
   scope :needs_review, -> {
     where.not(understanding_level: :mastered)
-         .where('studied_on < ?', 5.days.ago)
+         .where('study_on < ?', 5.days.ago)
   }
+
+  def understanding_level_text
+    I18n.t("activerecord.attributes.study_log.understanding_levels.#{understanding_level}")
+  end
 end

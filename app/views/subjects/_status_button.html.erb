@@ -1,0 +1,13 @@
+
+<div id="topic_<%= topic.id %>_status">
+    <%= button_to topic_study_logs_path(topic), 
+        method: :post,
+        params: { study_log: { study_on: Date.today } }, 
+        data: { turbo_stream: true },
+        class: "flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors #{status_color_class(topic)}" do %>
+    <span class="text-sm font-bold">
+        <%= topic.latest_study_log&.understanding_level_text || "未着手" %>
+    </span>
+    <span class="text-lg">＋</span>
+    <% end %>
+</div>
