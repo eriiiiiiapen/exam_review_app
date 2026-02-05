@@ -20,4 +20,13 @@ class StudyLog < ApplicationRecord
   def understanding_level_text
     I18n.t("activerecord.attributes.study_log.understanding_levels.#{understanding_level}")
   end
+
+  def self.next_level_for(current_level)
+    levels = understanding_levels.keys
+    current_index = levels.index(current_level.to_s) || -1
+    next_index = current_index + 1
+
+    next_index = 0 if next_index >= levels.size
+    levels[next_index]
+  end
 end
