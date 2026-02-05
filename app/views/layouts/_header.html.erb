@@ -1,0 +1,23 @@
+<header class="bg-white shadow-sm border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="flex-shrink-0">
+        <%= link_to "個人勉強アプリ", root_path, class: "text-xl font-bold text-blue-600" %>
+      </div>
+
+      <nav class="flex space-x-4 items-center">
+        <% if user_signed_in? %>
+          <%= link_to "試験項目ページ", exams_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" %>
+          <%= link_to "マイページ", user_path(current_user), class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" %>
+          
+          <%= link_to "ログアウト", destroy_user_session_path, 
+                      data: { turbo_method: :delete }, 
+                      class: "bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm font-medium" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium" %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</header>

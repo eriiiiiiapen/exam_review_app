@@ -1,2 +1,16 @@
-<h1>Exams#index</h1>
-<p>Find me in app/views/exams/index.html.erb</p>
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <nav class="mb-4 text-gray-600 text-sm">
+    <%= link_to "試験一覧", exams_path, class: "hover:underline" %>
+  </nav>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <% @exams.each do |exam| %>
+      <%= link_to exam_path(exam), class: "block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 transition" do %>
+        <div class="flex justify-between items-center">
+          <span class="text-lg font-medium text-blue-600"><%= exam.name %></span>
+          <span class="text-gray-400">→</span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
