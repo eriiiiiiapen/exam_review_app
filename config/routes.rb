@@ -30,5 +30,9 @@ Rails.application.routes.draw do
     resources :study_logs, only: [:create, :update]
   end
 
+  authenticated :user do
+    root "users#show", as: :user_root
+  end
+
   root "exams#index"
 end

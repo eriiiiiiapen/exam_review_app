@@ -4,12 +4,10 @@ class StudyLogsController < ApplicationController
 
     current_log = @topic.study_logs.order(study_on: :desc, id: :desc).first
     current_level = current_log&.understanding_level || "not_understood"
-    next_level = next_understanding_level(current_level)
+    next_level = StudyLog.next_level_for(current_level)
 
     @study_log = @topic.study_logs.build(study_log_params)
-    # TODO:ログイン機能追加後
-    # @study_log.user = current_user
-    @study_log.user = User.first
+    @study_log.user = current_user
     @study_log.understanding_level = next_level
 
     if @study_log.save
