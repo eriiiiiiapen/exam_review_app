@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_01_143426) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_07_120643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_01_143426) do
     t.index ["exam_id"], name: "index_subjects_on_exam_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name"
+  end
+
+  create_table "topic_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "tag_id", null: false
+    t.bigint "topic_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_topic_tags_on_tag_id"
+    t.index ["topic_id"], name: "index_topic_tags_on_topic_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
@@ -66,5 +82,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_01_143426) do
   add_foreign_key "study_logs", "topics"
   add_foreign_key "study_logs", "users"
   add_foreign_key "subjects", "exams"
+  add_foreign_key "topic_tags", "tags"
+  add_foreign_key "topic_tags", "topics"
   add_foreign_key "topics", "subjects"
 end

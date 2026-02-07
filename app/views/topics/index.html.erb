@@ -1,0 +1,35 @@
+<div class="max-w-5xl mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-8 text-gray-800 border-b pb-4"><%= @title %></h1>
+
+  <%= turbo_frame_tag "topic_form_area" %>
+
+  <div class="grid gap-8">
+    <% @subjects.each do |subject| %>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div class="flex justify-between items-center mb-4 border-b border-gray-50 pb-2">
+          <h2 class="font-bold text-xl text-blue-700">
+            <%= subject.name %>
+            <span class="text-xs text-gray-400 font-normal ml-2"><%= subject.topics.count %> 論点</span>
+          </h2>
+
+          <%= link_to new_subject_topic_path(subject), 
+              data: { turbo_frame: "modal" },
+              class: "text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full hover:bg-blue-600 hover:text-white transition-colors flex items-center gap-1" do %>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round"/></svg>
+            論点を追加
+          <% end %>
+        </div>
+
+        <div id="topics_list_subject_<%= subject.id %>" class="space-y-3">
+          <% if subject.topics.any? %>
+            <% subject.topics.each do |topic| %>
+              <%= render partial: "topics/topic_card", locals: { topic: topic } %>
+            <% end %>
+          <% else %>
+            <p class="text-gray-300 text-sm italic py-2">論点が登録されていません</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

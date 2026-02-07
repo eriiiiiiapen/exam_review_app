@@ -23,10 +23,13 @@ Rails.application.routes.draw do
   end
 
   resources :subjects, only: [:show] do
-    resources :topics, only: [:index, :show, :new, :create]
+    resources :topics, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
   
-  resources :topics, only: [] do
+  resources :topics, only: [:index] do
+    collection do
+      get :search
+    end
     resources :study_logs, only: [:create, :update]
   end
 
