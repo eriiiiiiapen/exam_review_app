@@ -1,0 +1,5 @@
+<%= turbo_stream.replace dom_id(@topic) do %>
+  <%= render partial: "topics/topic_card", locals: { topic: @topic } %>
+<% end %>
+
+<%= turbo_stream.update "modal", "" %>
