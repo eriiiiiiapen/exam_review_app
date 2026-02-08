@@ -1,13 +1,44 @@
 <div class="p-4 bg-white rounded-xl shadow">
   <h2 class="text-lg font-bold mb-4"><%= @user.email %>学習記録</h2>
   
-  <div class="flex flex-wrap gap-1" style="width: 700px;">
-    <% (@start_date..@end_date).each do |date| %>
-      <% count = @stats[date] || 0 %>
-      <div class="w-3 h-3 rounded-sm transition-colors <%= grass_color(count) %>"
-          title="<%= date %>: <%= count %>回学習">
+  <div class="p-8 bg-white rounded-3xl shadow-sm border border-gray-100">
+    <h2 class="text-xl font-bold mb-6">学習の記録（過去1年）</h2>
+
+    <div class="grid grid-cols-3 gap-4 mb-8">
+      <div class="text-center p-4 bg-blue-50 rounded-2xl">
+        <div class="text-sm text-blue-600 font-bold">累計学習数</div>
+        <div class="text-2xl font-black text-blue-900"><%= @total_count %> <span class="text-sm">論点</span></div>
       </div>
-    <% end %>
+      <div class="text-center p-4 bg-orange-50 rounded-2xl">
+        <div class="text-sm text-orange-600 font-bold">1日の最高</div>
+        <div class="text-2xl font-black text-orange-900"><%= @max_count %> <span class="text-sm">論点</span></div>
+      </div>
+      <div class="text-center p-4 bg-green-50 rounded-2xl">
+        <div class="text-sm text-green-600 font-bold">現在の継続</div>
+        <div class="text-2xl font-black text-green-900"><%= @streak %> <span class="text-sm">日</span></div>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <div class="grid grid-rows-7 gap-1 text-[10px] text-gray-400 pt-1">
+        <div class="h-3"></div> <%# 日 %>
+        <div class="h-3 leading-3">Mon</div>
+        <div class="h-3"></div> <%# 火 %>
+        <div class="h-3 leading-3">Wed</div>
+        <div class="h-3"></div> <%# 木 %>
+        <div class="h-3 leading-3">Fri</div>
+        <div class="h-3"></div> <%# 土 %>
+      </div>
+      
+      <div class="grid grid-flow-col grid-rows-7 gap-1 w-max overflow-x-auto">
+        <% (@start_date..@end_date).each do |date| %>
+          <% count = @stats[date] || 0 %>
+          <div class="w-3 h-3 rounded-sm <%= grass_color(count) %>" 
+              title="<%= date %>: <%= count %> 論点完了">
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
   
   <div class="mt-2 flex items-center text-xs text-gray-400 gap-1">
@@ -18,5 +49,27 @@
     <div class="w-3 h-3 bg-green-600 rounded-sm"></div>
     <div class="w-3 h-3 bg-green-800 rounded-sm"></div>
     <span>More</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <h3 class="text-lg font-bold mb-4 text-gray-700">科目別学習比率</h3>
+      <div class="relative h-64">
+        <canvas data-controller="chart" 
+                data-chart-data-value="<%= @subject_stats.to_json %>">
+        </canvas>
+      </div>
+    </div>
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <h3 class="text-lg font-bold mb-4 text-gray-700">科目別ランキング</h3>
+      <ul class="space-y-3">
+        <% @subject_stats.sort_by { |_, v| -v }.first(5).each do |name, count| %>
+          <li class="flex justify-between items-center">
+            <span class="text-sm text-gray-600"><%= name %></span>
+            <span class="font-bold text-gray-900"><%= count %> 回</span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
