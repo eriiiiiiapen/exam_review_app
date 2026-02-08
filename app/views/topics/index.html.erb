@@ -1,14 +1,14 @@
-<div class="max-w-5xl mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-8 text-gray-800 border-b pb-4"><%= @title %></h1>
+<div class="max-w-7xl mx-auto p-2">
+  <h1 class="text-2xl font-bold mb-8 text-gray-800 border-b pb-4 text-center"><%= @title %></h1>
 
   <%= turbo_frame_tag "topic_form_area" %>
 
-  <div class="grid gap-8">
+  <div class="grid gap-8 md:grid-cols-3 grid-col-1">
     <% @subjects.each do |subject| %>
       <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
         <div class="flex justify-between items-center mb-4 border-b border-gray-50 pb-2">
           <h2 class="font-bold text-xl text-blue-700">
-            <%= subject.name %>
+            <%= subject.name %><br>
             <span class="text-xs text-gray-400 font-normal ml-2"><%= subject.topics.count %> 論点</span>
           </h2>
 

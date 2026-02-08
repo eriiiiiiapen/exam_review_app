@@ -1,10 +1,11 @@
 <header class="bg-white shadow-sm border-b">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <div class="flex-shrink-0">
-        <%= link_to "個人勉強アプリ", root_path, class: "text-xl font-bold text-blue-600" %>
+    <div class="md:flex md:justify-between md:h-16 items-center md:flex-row py-2 md:py-0">
+      <div class="flex md:flex-row flex-col">
+        <%= link_to "個人勉強アプリ", root_path, class: "text-xl font-bold text-blue-600 mb-2 md:mb-0" %>
         <% if user_signed_in? %>
-          <%= form_with url: search_topics_path, method: :get, local: true, class: "hidden md:block relative" do |f| %>
+        <div class="flex w-full md:w-auto md:pl-4">
+          <%= form_with url: search_topics_path, method: :get, local: true, class: "relative w-full md:w-auto" do |f| %>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -13,22 +14,23 @@
               </div>
               <%= f.text_field :tag_name, 
                   placeholder: "用語で横断検索...", 
-                  class: "block w-64 pl-10 pr-3 py-1.5 border border-gray-300 rounded-full leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all focus:w-80" %>
+                  class: "block w-full md:w-64 pl-10 pr-3 py-1.5 border border-gray-300 rounded-full leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all md:focus:w-80" %>
             </div>
           <% end %>
+        </div>
         <% end %>
       </div>
 
-      <nav class="flex space-x-4 items-center">
+      <nav class="flex md:space-x-4 space-x-2 justify-center items-center mt-3 md:mt-0">
         <% if user_signed_in? %>
-          <%= link_to "学習ダッシュボード", topics_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" %>
-          <%= link_to "マイページ", user_path(current_user), class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" %>
-          
+          <%= link_to "マイページ", user_path(current_user), class: "text-gray-700 hover:text-blue-600 px-1 md:px-3 py-2 text-sm font-medium whitespace-nowrap" %>
+          <%= link_to "学習ダッシュボード", topics_path, class: "text-gray-700 hover:text-blue-600 px-1 md:px-3 py-2 text-sm font-medium whitespace-nowrap" %>
+            
           <%= link_to "ログアウト", destroy_user_session_path, 
                       data: { turbo_method: :delete }, 
-                      class: "bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm font-medium" %>
+                      class: "bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 md:px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap" %>
         <% else %>
-          <%= link_to "ログイン", new_user_session_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-gray-700 hover:text-blue-600 md:px-3 py-2 text-sm font-medium" %>
           <%= link_to "新規登録", new_user_registration_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium" %>
         <% end %>
       </nav>
