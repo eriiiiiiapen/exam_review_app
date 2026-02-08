@@ -1,10 +1,10 @@
-<div class="p-4 bg-white rounded-xl shadow">
-  <h2 class="text-lg font-bold mb-4"><%= @user.email %>学習記録</h2>
+<div class="md:p-8 p-4 bg-white overflow-hidden">
+  <h1 class="text-2xl font-bold mb-8 text-gray-800 border-b pb-4 text-center"><%= @user.email %>の<br class="md:hidden">学習記録</h1>
   
   <div class="p-8 bg-white rounded-3xl shadow-sm border border-gray-100">
     <h2 class="text-xl font-bold mb-6">学習の記録（過去1年）</h2>
 
-    <div class="grid grid-cols-3 gap-4 mb-8">
+    <div class="grid md:grid-cols-3 grid-cols-1 gap-4 mb-8">
       <div class="text-center p-4 bg-blue-50 rounded-2xl">
         <div class="text-sm text-blue-600 font-bold">累計学習数</div>
         <div class="text-2xl font-black text-blue-900"><%= @total_count %> <span class="text-sm">論点</span></div>
@@ -19,8 +19,8 @@
       </div>
     </div>
 
-    <div class="flex gap-2">
-      <div class="grid grid-rows-7 gap-1 text-[10px] text-gray-400 pt-1">
+    <div class="flex gap-2 min-w-0">
+      <div class="grid grid-rows-7 gap-1 text-[10px] text-gray-400 pt-1 shrink-0">
         <div class="h-3"></div> <%# 日 %>
         <div class="h-3 leading-3">Mon</div>
         <div class="h-3"></div> <%# 火 %>
@@ -30,13 +30,15 @@
         <div class="h-3"></div> <%# 土 %>
       </div>
       
-      <div class="grid grid-flow-col grid-rows-7 gap-1 w-max overflow-x-auto">
-        <% (@start_date..@end_date).each do |date| %>
-          <% count = @stats[date] || 0 %>
-          <div class="w-3 h-3 rounded-sm <%= grass_color(count) %>" 
-              title="<%= date %>: <%= count %> 論点完了">
-          </div>
-        <% end %>
+      <div class="flex-1 min-w-0 overflow-x-auto pb-2 custom-scrollbar"> 
+        <div class="grid grid-flow-col grid-rows-7 gap-1 w-max">
+          <% (@start_date..@end_date).each do |date| %>
+            <% count = @stats[date] || 0 %>
+            <div class="w-3 h-3 rounded-sm <%= grass_color(count) %> shrink-0" 
+                title="<%= date %>: <%= count %> 論点完了">
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
