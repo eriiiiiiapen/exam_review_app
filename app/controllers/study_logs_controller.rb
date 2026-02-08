@@ -14,13 +14,8 @@ class StudyLogsController < ApplicationController
         @topic.reload
         @topic.association(:latest_study_log).reset
         respond_to do |format|
-            format.turbo_stream {
-                render turbo_stream: turbo_stream.replace(
-                "topic_#{@topic.id}_status",
-                partial: "subjects/status_button",
-                locals: { topic: @topic }
-                )
-            }
+            # create.turbo_stream.erb
+            format.turbo_stream
             format.html { redirect_back fallback_location: root_path }
         end
     end

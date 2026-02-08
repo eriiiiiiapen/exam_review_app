@@ -5,7 +5,8 @@
 <%= turbo_stream.update "modal", "" %>
 
 <%= turbo_stream.prepend "flash_messages" do %>
-  <div class="fixed bottom-5 right-5 bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl z-50 animate-bounce">
-    「<%= @topic.name %>」を保存しました！
+  <div data-controller="flash" 
+       class="fixed bottom-5 right-5 bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg z-50">
+    「<%= @topic.name %>」を記録しました
   </div>
 <% end %>
