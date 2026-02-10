@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :topics, only: [:index] do
     collection do
       get :search
+      post :import
     end
     resources :study_logs, only: [:create, :update]
   end

@@ -69,6 +69,15 @@ class TopicsController < ApplicationController
     end
   end
 
+  def import
+    if params[:file].present?
+      Topic.import_csv!(params[:file])
+      redirect_to topics_path, notice: "論点をインポートしました。"
+    else
+      redirect_to topics_path, alert: "ファイルを選択してください。"
+    end
+  end
+
   private
 
   def topic_params
