@@ -1,6 +1,13 @@
 <div class="max-w-7xl mx-auto p-2">
   <h1 class="text-2xl font-bold mb-8 text-gray-800 border-b pb-4 text-center"><%= @title %></h1>
 
+  <%= form_with url: import_topics_path, method: :post do |f| %>
+    <div class="flex items-center gap-2 p-4 bg-gray-50 rounded-lg border">
+        <%= f.file_field :file, accept: '.csv', class: "text-sm" %>
+        <%= f.submit "CSVインポート", class: "bg-blue-600 text-white px-4 py-2 rounded-md text-sm cursor-pointer" %>
+    </div>
+  <% end %>
+
   <%= turbo_frame_tag "topic_form_area" %>
 
   <div class="grid gap-8 md:grid-cols-3 grid-col-1">

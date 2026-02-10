@@ -1,5 +1,5 @@
 <div id="<%= dom_id(topic) %>" class="p-4 bg-white border rounded-xl shadow-sm flex justify-between items-center hover:border-blue-200 transition-colors group">
-    <div class="flex-1">
+    <div class="flex-1 min-w-0 mr-4">
         <%= link_to edit_subject_topic_path(topic.subject, topic), 
             data: { turbo_frame: "modal" }, 
                 class: "group/title" do %>
