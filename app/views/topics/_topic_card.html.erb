@@ -1,17 +1,35 @@
-<div id="<%= dom_id(topic) %>" class="p-4 bg-white border rounded-xl shadow-sm flex justify-between items-center hover:border-blue-200 transition-colors group">
+<% status = topic.study_status(current_user) %>
+<div id="<%= dom_id(topic) %>" 
+     class="p-4 bg-white border rounded-xl shadow-sm flex justify-between items-center hover:border-blue-200 transition-colors group 
+            <%= status == :weak ? 'border-l-4 border-l-orange-400 bg-orange-50/30' : '' %>">
+    
     <div class="flex-1 min-w-0 mr-4">
-        <%= link_to edit_subject_topic_path(topic.subject, topic), 
-            data: { turbo_frame: "modal" }, 
-                class: "group/title" do %>
-            <span class="font-bold text-gray-800 text-lg group-hover/title:text-blue-600 group-hover/title:underline decoration-2">
-                <%= topic.name %>
-            </span>
+        <div class="flex items-center gap-2 flex-wrap">
+            <%= link_to edit_subject_topic_path(topic.subject, topic), 
+                data: { turbo_frame: "modal" }, 
+                class: "group/title block truncate" do %>
+                <span class="font-bold text-gray-800 text-sm group-hover/title:text-blue-600 group-hover/title:underline">
+                    <%= topic.name %>
+                </span>
+            <% end %>
+
+            <% if status == :new %>
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-yellow-100 text-yellow-700 animate-pulse">
+                    NEW!
+                </span>
+            <% end %>
+
+            <% if status == :weak %>
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-700 animate-pulse">
+                    ⚠️ 要復習
+                </span>
+            <% end %>
+        </div>
             <% if topic.description.present? %>
                 <p class="text-xs text-gray-400 truncate max-w-md mt-1">
                 <%= topic.description %>
                 </p>
             <% end %>
-        <% end %>
         <div class="flex flex-wrap gap-2 mt-2">
         <% if topic.tags.any? %>
             <% topic.tags.each do |tag| %>
