@@ -45,4 +45,13 @@ class Topic < ApplicationRecord
       end
     end
   end
+
+  def study_status(user)
+    user_logs = study_logs.select { |l| l.user_id == user.id }
+    return :new if user_logs.empty?
+
+    total = user_logs.sum { |l| l.understanding_level.to_f }
+    avg = total / user_logs.size
+    avg < 2.0 ? :weak : :learned
+  end
 end

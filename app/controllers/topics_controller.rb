@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    @subjects = Subject.all.includes(topics: [:tags, :study_logs])
+    @subjects = Subject.includes(topics: [:study_logs, :tags]).all
     @title = "学習ダッシュボード"
   end
 
