@@ -1,6 +1,6 @@
 import strawberry
 from datetime import date
-from services.schedule import get_daily_stats
+from ..services.schedule import get_daily_stats
 
 @strawberry.type
 class DailyGoal:
@@ -9,7 +9,7 @@ class DailyGoal:
     topics_per_day: float
 
 @strawberry.type
-class Query:
+class ScheduleQuery:
     @strawberry.field
     async def schedule_analysis(self, info: strawberry.Info, target_date: date) -> DailyGoal:
         user_id = 1 
@@ -20,5 +20,3 @@ class Query:
 
         stats = await get_daily_stats(user_id, target_date, db)
         return DailyGoal(**stats)
-
-schema = strawberry.Schema(query=Query)
