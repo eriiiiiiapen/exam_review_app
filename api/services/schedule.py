@@ -1,7 +1,7 @@
 from datetime import date
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import Topic, StudyLog
+from ..models import Topic, StudyLog
 
 async def get_daily_stats(user_id: int, target_date: date, db: AsyncSession):
     # 1. 全論点数 (Total Topics)

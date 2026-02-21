@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from strawberry.fastapi import GraphQLRouter
-from database import AsyncSessionLocal
-from schema import schema 
+from .database import AsyncSessionLocal
+from .schema import schema 
+from .services.recall import record_result
 from pydantic import BaseModel
-from services.recall import record_result
 
 async def get_context():
     async with AsyncSessionLocal() as session:
@@ -17,7 +17,6 @@ class RecallResultInput(BaseModel):
     topic_id: int
     is_correct: bool
 
-@app.post("/recall/results")
 async def post_recall_result(data: RecallResultInput):
     async with AsyncSessionLocal() as db:
         user_id = 1

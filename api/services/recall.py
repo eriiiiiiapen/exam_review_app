@@ -1,6 +1,6 @@
 from sqlalchemy import select, desc
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import StudyLog
+from ..models import StudyLog
 from datetime import date
 
 async def record_result(user_id: int, topic_id: int, is_correct: bool, db: AsyncSession):
