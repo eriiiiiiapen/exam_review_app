@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :study_logs, only: [:create]
 
     resource :study_log, only: [] do
-      post :create_or_update
+      match :create_or_update, via: [:post, :patch]
     end
   end
 
