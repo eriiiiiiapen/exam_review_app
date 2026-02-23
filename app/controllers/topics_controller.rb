@@ -4,6 +4,17 @@ class TopicsController < ApplicationController
     @title = "学習ダッシュボード"
   end
 
+  def active_recall_index
+    @subjects = Subject.includes(topics: :study_logs).all
+
+    @recommended_topics = Topic.left_outer_joins(:study_logs)
+                              .where(study_logs: { user_id: [current_user.id, nil] })
+                              .where("study_logs.understanding_level < ? OR study_logs.updated_at < ?", 3, 1.week.ago)
+                              .includes(:study_logs)
+                              .order("RANDOM()")
+                              .limit(5)
+  end
+
   def new
     @subject = Subject.find(params[:subject_id])
     @topic = @subject.topics.build

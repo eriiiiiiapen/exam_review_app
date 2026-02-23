@@ -21,6 +21,18 @@ class StudyLogsController < ApplicationController
     end
   end
 
+  def create_or_update
+    @topic = Topic.find(params[:topic_id])
+    @study_log = current_user.study_logs.find_or_initialize_by(topic: @topic)
+    
+    if @study_log.update(study_log_create_or_update_params)
+      @study_log.touch(:study_on)
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
+  end
+
   private
 
   def next_understanding_level(current)
@@ -33,5 +45,9 @@ class StudyLogsController < ApplicationController
 
   def study_log_params
     params.require(:study_log).permit(:study_on)
+  end
+
+  def study_log_create_or_update_params
+    params.require(:study_log).permit(:understanding_level, :note)
   end
 end

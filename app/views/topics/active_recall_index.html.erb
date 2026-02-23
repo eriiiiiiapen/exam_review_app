@@ -1,0 +1,21 @@
+<div id="recommended-topics-list">
+  <% @recommended_topics.each do |topic| %>
+    <% study_log = topic.study_logs.find { |l| l.user_id == current_user.id } || topic.study_logs.build(user: current_user) %>
+
+    <div class="recall-item" id="recall_<%= dom_id(topic) %>">
+      <%= form_with(model: study_log, url: create_or_update_topic_study_log_path(topic), method: :patch) do |f| %>
+        <%= render partial: "topics/topic", locals: { topic: topic } %>
+
+        <div class="feedback-form">
+          <%= f.label :understanding_level, "理解度" %>
+          <%= f.select :understanding_level, [["未", 0], ["低", 1], ["中", 2], ["高", 3]], {}, { class: "form-select" } %>
+          
+          <%= f.text_area :note, placeholder: "今回のポイントをメモ...", class: "form-control mt-2" %>
+          
+          <%= f.submit "記録する", class: "btn btn-primary mt-2" %>
+        </div>
+      <% end %>
+      <hr>
+    </div>
+  <% end %>
+</div>

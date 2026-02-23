@@ -1,0 +1,21 @@
+<div class="topic-card" id="<%= dom_id(topic) %>">
+  <h3><%= topic.name %></h3>
+
+  <details>
+    <summary class="btn-show-answer">正解・解説を確認</summary>
+    <div class="answer-content">
+      <p><%= topic.description %></p>
+
+      <% log = topic.study_logs.find_by(user: current_user) %>
+      <% if log&.note.present? %>
+        <div class="previous-note">前回の自分: <%= log.note %></div>
+      <% end %>
+
+      <%= form_with(model: [topic, (log || topic.study_logs.build)], url: topic_study_logs_path(topic)) do |f| %>
+        <%= f.select :understanding_level, [["未着手", 0], ["微妙", 1], ["OK", 2], ["完璧", 3]] %>
+        <%= f.text_field :note, placeholder: "自分へのメモ（任意）" %>
+        <%= f.submit "記録" %>
+      <% end %>
+    </div>
+  </details>
+</div>
