@@ -28,10 +28,15 @@ Rails.application.routes.draw do
   
   resources :topics, only: [:index] do
     collection do
+      get :active_recall_index
       get :search
       post :import
     end
-    resources :study_logs, only: [:create, :update]
+    resources :study_logs, only: [:create]
+
+    resource :study_log, only: [] do
+      match :create_or_update, via: [:post, :patch]
+    end
   end
 
   authenticated :user do

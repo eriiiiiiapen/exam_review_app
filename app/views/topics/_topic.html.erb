@@ -1,0 +1,15 @@
+<div class="topic-card" id="<%= dom_id(topic) %>">
+  <h3><%= topic.name %></h3>
+
+  <details>
+    <summary class="btn-show-answer">正解・解説を確認</summary>
+    <div class="answer-content">
+      <p><%= topic.description %></p>
+
+      <% log = topic.study_logs.find { |l| l.user_id == current_user.id } %>
+      <% if log&.note.present? %>
+        <div class="previous-note">前回の自分: <%= log.note %></div>
+      <% end %>
+    </div>
+  </details>
+</div>
