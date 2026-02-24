@@ -1,8 +1,4 @@
-<%= turbo_stream.replace "recall_#{dom_id(@topic)}" do %>
-  <div class="recall-item bg-green-50 p-4 rounded shadow-inner mb-4">
-    <p class="text-green-700 font-bold">✓ 「<%= @topic.name %>」を学習済みとして記録しました</p>
-  </div>
-<% end %>
+<%= turbo_stream.remove dom_id(@topic, :recall) %>
 
 <%= turbo_stream.prepend "flash_messages" do %>
   <div data-controller="flash" 

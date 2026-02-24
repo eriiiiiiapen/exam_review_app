@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
                               .where("study_logs.understanding_level < ? OR study_logs.updated_at < ?", 3, 1.week.ago)
                               .includes(:study_logs)
                               .order("RANDOM()")
-                              .limit(5)
+                              .limit(3)
   end
 
   def new
