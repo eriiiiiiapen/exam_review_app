@@ -24,6 +24,7 @@
       <nav class="flex md:space-x-4 space-x-2 justify-center items-center mt-3 md:mt-0">
         <% if user_signed_in? %>
           <%= link_to "マイページ", user_path(current_user), class: "text-gray-700 hover:text-blue-600 px-1 md:px-3 py-2 text-sm font-medium whitespace-nowrap" %>
+          <%= link_to "今日のアクティブリコール", active_recall_index_topics_path, class: "text-gray-700 hover:text-blue-600 px-1 md:px-3 py-2 text-sm font-medium whitespace-nowrap" %>
           <%= link_to "学習ダッシュボード", topics_path, class: "text-gray-700 hover:text-blue-600 px-1 md:px-3 py-2 text-sm font-medium whitespace-nowrap" %>
             
           <%= link_to "ログアウト", destroy_user_session_path, 
