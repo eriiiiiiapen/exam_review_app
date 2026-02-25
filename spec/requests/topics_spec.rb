@@ -9,14 +9,14 @@ RSpec.describe "Topics", type: :request do
 
   it "(Turbo Stream形式で)論点が作成され、一覧に追加されること" do
     expect {
-      post subject_topics_path(subject_model), 
-           params: { 
-             topic: { 
-               name: "新しい論点", 
-               description: "メモ", 
+      post subject_topics_path(subject_model),
+           params: {
+             topic: {
+               name: "新しい論点",
+               description: "メモ",
                tag_list: "時効, 被保険者"
-             } 
-           }, 
+             }
+           },
            as: :turbo_stream
     }.to change(Topic, :count).by(1)
 
@@ -62,10 +62,10 @@ RSpec.describe "Topics", type: :request do
 
     context "バリデーションエラーの場合" do
       it "422エラーが返り、編集画面が再表示されること" do
-        patch subject_topic_path(subject_model, topic), 
+        patch subject_topic_path(subject_model, topic),
               params: { topic: { name: "" } },
               as: :turbo_stream
-        
+
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to include("turbo-frame id=\"modal\"")
       end

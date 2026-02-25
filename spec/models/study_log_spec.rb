@@ -6,7 +6,7 @@ RSpec.describe StudyLog, type: :model do
         let(:topic) { create(:topic) }
 
         it '全ての属性が揃っていれば有効であること' do
-            study_log = StudyLog.new(
+            study_log = described_class.new(
                 user: user,
                 topic: topic,
                 understanding_level: :understood,
@@ -16,7 +16,7 @@ RSpec.describe StudyLog, type: :model do
         end
 
         it 'understanding_levelがない場合は無効であること' do
-            study_log = StudyLog.new(understanding_level: nil)
+            study_log = described_class.new(understanding_level: nil)
             expect(study_log).not_to be_valid
             expect(study_log.errors[:understanding_level]).to include("を入力してください")
         end
@@ -31,8 +31,8 @@ RSpec.describe StudyLog, type: :model do
 
     describe 'カスタムメソッド .next_level_for のテスト' do
         it '階層が正しく循環すること' do
-            expect(StudyLog.next_level_for(:not_understood)).to eq 'vaguely_understood'
-            expect(StudyLog.next_level_for(:mastered)).to eq 'not_understood'
+            expect(described_class.next_level_for(:not_understood)).to eq 'vaguely_understood'
+            expect(described_class.next_level_for(:mastered)).to eq 'not_understood'
         end
     end
 end
