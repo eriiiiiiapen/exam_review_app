@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    @subjects = Subject.includes(topics: [:study_logs, :tags]).all
+    @subjects = Subject.includes(topics: [ :study_logs, :tags ]).all
     @title = "学習ダッシュボード"
   end
 
@@ -8,7 +8,7 @@ class TopicsController < ApplicationController
     @subjects = Subject.includes(topics: :study_logs).all
 
     @recommended_topics = Topic.left_outer_joins(:study_logs)
-                              .where(study_logs: { user_id: [current_user.id, nil] })
+                              .where(study_logs: { user_id: [ current_user.id, nil ] })
                               .where("study_logs.understanding_level < ? OR study_logs.updated_at < ?", 3, 1.week.ago)
                               .includes(:study_logs)
                               .order("RANDOM()")
@@ -28,7 +28,7 @@ class TopicsController < ApplicationController
     if @topic.save
       respond_to do |format|
         format.turbo_stream # create.turbo_stream.erb
-        format.html { redirect_to @subject, notice: '論点を追加しました' }
+        format.html { redirect_to @subject, notice: "論点を追加しました" }
       end
     else
       render :new, status: :unprocessable_entity
@@ -62,14 +62,14 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       # destroy.turbo_stream.erb
-      format.turbo_stream 
+      format.turbo_stream
       format.html { redirect_to topics_path, notice: "論点を削除しました" }
     end
   end
 
   def search
     @tag_name = params[:tag_name]
-      
+
     if @tag_name.present?
       @topics = Topic.joins(:tags)
                     .where(tags: { name: @tag_name })

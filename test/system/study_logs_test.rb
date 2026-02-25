@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class StudyLogsTest < ApplicationSystemTestCase
   setup do
-    @user = User.find_by(email: "test_user@example.com") || 
+    @user = User.find_by(email: "test_user@example.com") ||
           User.create!(email: "test_user@example.com", password: "password", password_confirmation: "password")
     @exam = Exam.find_or_create_by!(name: "社労士")
     @subject = Subject.find_or_create_by!(name: "労働法", exam: @exam)

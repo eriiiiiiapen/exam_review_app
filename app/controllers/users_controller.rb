@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     @start_date = 365.days.ago.to_date
     @end_date = Date.today
-  
+
     @stats = @user.study_logs
                   .where(study_on: @start_date..@end_date)
                   .group(:study_on)

@@ -25,7 +25,7 @@ class StudyLogsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @subject = @topic.subject
     @study_log = current_user.study_logs.find_or_initialize_by(topic: @topic)
-    
+
     if @study_log.update(study_log_create_or_update_params)
       @study_log.touch(:study_on)
       respond_to do |format|

@@ -14,7 +14,7 @@ class StudyLog < ApplicationRecord
   # 要復習論点
   scope :needs_review, -> {
     where.not(understanding_level: :mastered)
-         .where('study_on < ?', 5.days.ago)
+         .where("study_on < ?", 5.days.ago)
   }
 
   def understanding_level_text

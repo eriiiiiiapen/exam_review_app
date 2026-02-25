@@ -13,7 +13,7 @@ RSpec.describe "Exams", type: :request do
 
       get exam_path(exam)
 
-      follow_redirect! while response.status.in?([302, 303])
+      follow_redirect! while response.status.in?([ 302, 303 ])
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include("個人勉強アプリ")
