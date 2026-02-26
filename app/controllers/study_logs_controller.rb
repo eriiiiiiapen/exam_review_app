@@ -34,7 +34,10 @@ class StudyLogsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render "topics/active_recall_index", status: :unprocessable_entity }
+        format.html {
+          @recommended_topics = @topic.to_a
+          render "topics/active_recall_index", status: :unprocessable_entity
+        }
       end
     end
   end
