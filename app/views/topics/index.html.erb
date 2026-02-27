@@ -1,8 +1,8 @@
-<div class="max-w-7xl mx-auto p-2">
+<div class="mx-auto p-2 w-full">
   <h1 class="text-2xl font-bold mb-8 text-gray-800 border-b pb-4 text-center"><%= @title %></h1>
 
   <%= form_with url: import_topics_path, method: :post do |f| %>
-    <div class="flex items-center gap-2 p-4 bg-gray-50 rounded-lg border">
+    <div class="flex md:flex-row flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg border">
         <%= f.file_field :file, accept: '.csv', class: "text-sm" %>
         <%= f.submit "CSVインポート", class: "bg-blue-600 text-white px-4 py-2 rounded-md text-sm cursor-pointer" %>
     </div>
@@ -10,9 +10,9 @@
 
   <%= turbo_frame_tag "topic_form_area" %>
 
-  <div class="grid gap-8 md:grid-cols-3 grid-col-1">
+  <div class="grid gap-8 grid-cols-1 md:grid-cols-3 w-full">
     <% @subjects.each do |subject| %>
-      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 w-full">
         <div class="flex justify-between items-center mb-4 border-b border-gray-50 pb-2">
           <h2 class="font-bold text-xl text-blue-700">
             <%= subject.name %><br>
